@@ -5,13 +5,13 @@ const app = express();
 app.use(express.json());
 const PIXEL_ID = process.env.PIXEL_ID;
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
-const STAGE_MAP = { "6": "Lead", "7": "Contact", "8": "ViewContent", "9": "Schedule" };
+const STAGE_MAP = { "6": "Lead", "7": "Contact", "8": "ViewContent", "9": "Schedule", "10": "Purchase" };
 function hash(v) { return crypto.createHash("sha256").update(v.trim().toLowerCase()).digest("hex"); }
 app.post("/webhook", async (req, res) => {
   try {
-    console.log("Body recebido:", JSON.stringify(req.body).slice(0, 500));
-    const deal = req.body && req.body.current;
-    if (!deal) { console.log("Sem deal.current"); return res.sendStatus(200); }
+    console.log("Body recebido:", JSON.stringify(req.body).slice(0, 300));
+    const deal = req.body.current || req.body.data;
+    if (!deal) { console.log("Sem deal"); return res.sendStatus(200); }
     const stageId = String(deal.stage_id);
     console.log("Stage ID:", stageId);
     const eventName = STAGE_MAP[stageId];
