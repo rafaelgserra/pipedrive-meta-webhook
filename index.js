@@ -7,7 +7,7 @@ app.use(express.json());
 const PIXEL_ID = process.env.PIXEL_ID;
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
 const PIPEDRIVE_TOKEN = process.env.PIPEDRIVE_TOKEN;
-const STAGE_MAP = { "6": "Lead", "7": "Contact", "8": "ViewContent", "9": "Schedule", "10": "InitiateCheckout", "11": "Purchase" };
+const STAGE_MAP = process.env.STAGE_MAP ? JSON.parse(process.env.STAGE_MAP) : { "6": "Lead", "7": "Contact", "8": "ViewContent", "9": "Schedule", "10": "InitiateCheckout", "11": "Purchase" };
 
 function hash(v) { return crypto.createHash("sha256").update(String(v).trim().toLowerCase()).digest("hex"); }
 
